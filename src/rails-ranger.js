@@ -18,8 +18,8 @@ class RailsRanger {
   * @constructor
   * @param {object} configs - Configurations to be handed to Axios.
   */
-  constructor (configs = {}) {
-    this.client       = Axios.create(configs)
+  constructor (clientConfigs = {}, { client = Axios }) {
+    this.client       = client.create(clientConfigs)
     this.routeBuilder = new RailsRouteBuilder()
     this.pathBuilder  = new PathBuilder()
   }

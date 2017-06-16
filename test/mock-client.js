@@ -1,4 +1,6 @@
 class MockClient {
+  static create() { return new MockClient }
+
   get () { return this._mockResponse() }
   put () { return this._mockResponse() }
   post () { return this._mockResponse() }

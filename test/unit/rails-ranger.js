@@ -2,23 +2,31 @@ import RailsRanger from '../../src/rails-ranger'
 import MockClient  from '../mock-client'
 
 describe('RailsRanger', () => {
-  let ranger = null
+  let ranger
 
   beforeEach(() => {
-    // Defines a new RailsRanger instance to be used in each test
-    ranger        = new RailsRanger()
-    ranger.client = new MockClient()
+    ranger = new RailsRanger({}, { client: MockClient })
   })
 
   describe('constructor', () => {
     it('instantiates RailsRanger with a pathBuilder', () => {
-      let railsRanger = new RailsRanger()
-      expect(railsRanger.pathBuilder).to.be.an('object')
+      let ranger = new RailsRanger()
+      expect(ranger.pathBuilder).to.be.an('object')
     })
 
     it('instantiates RailsRanger with a routeBuilder', () => {
-      let railsRanger = new RailsRanger()
-      expect(railsRanger.routeBuilder).to.be.an('object')
+      let ranger = new RailsRanger()
+      expect(ranger.routeBuilder).to.be.an('object')
+    })
+
+    it('passes the received arguments to the client', () => {
+      spy(MockClient, 'create')
+
+      const clientArgs      = { argument: true }
+      const railsRangerArgs = { client: MockClient }
+      const ranger          = new RailsRanger(clientArgs, railsRangerArgs)
+
+      expect(ranger.client.create).to.be.have.been.calledWith(clientArgs)
     })
   })
 
